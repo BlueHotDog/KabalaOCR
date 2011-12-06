@@ -3,7 +3,9 @@ exec = require('child_process').exec
 
 class GenerateLanguageFileCommand
   constructor:(@box_filename) ->
-    @commands = ["unicharset_extractor #{@box_filename}.box",
+    @current = 0
+    @commands = ["tesseract #{@box_filename}.tif #{@box_filename} nobatch box.train",
+      "unicharset_extractor #{@box_filename}.box",
       "echo #{@box_filename} 0 0 0 0 0 > font_properties",
       "mftraining -F font_properties -U unicharset #{@box_filename}.tr",
       "mftraining -F font_properties -U unicharset -O #{@box_filename}.unicharset #{@box_filename}.tr",
@@ -16,17 +18,26 @@ class GenerateLanguageFileCommand
       "combine_tessdata #{@box_filename}."]
 
   execute: ->
-    for command in @commands
-      exec(command, (error, stdout, stderr) =>
-        console.log("Error from command: #{command}")
-        util.print('stdout: ' + stdout)
-        util.print('stderr: ' + stderr)
-        console.log('exec error: ' + error) unless error is null
+    @_runCommand(@commands[@current])
+
+  _runCommand:(command) ->
+    exec(command, (error, stdout, stderr) =>
+        unless error is null
+          console.log("Error from command: #{command}")
+          util.print('stdout: ' + stdout)
+          util.print('stderr: ' + stderr)
+          console.log('exec error: ' + error)
+
+        @_runCommand(@_get_next_command()) unless @current is @commands.length-1
       )
+
+  _get_next_command: ->
+    @current += 1
+    @commands[@current] unless @current is @commands.length
 
   print_commands: ->
     for command in @commands
       console.log(command)
 
 command = new GenerateLanguageFileCommand(process.argv[2])
-command.print_commands()
+command.execute()
