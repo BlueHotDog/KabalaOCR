@@ -1,0 +1,8 @@
+{
+  "name": "kabalaocr",
+  "version": "0.0.1",
+  "dependencies": {
+    "underscore": "",
+    "coffee-script":""
+  }
+}
