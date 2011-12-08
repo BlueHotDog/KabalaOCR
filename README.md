@@ -1,7 +1,7 @@
 KabalaOCR
 ==============
 
-An attempt to create an Tesseract langauge file for SuperMarket receipts :)
+Tesseract langauge file for SuperMarket receipts :)
 
 Setup a Tesseract environment
 -----------------------------
