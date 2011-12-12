@@ -13,11 +13,23 @@ aptitude repositories hold an old version (v2.04).
 
 * Download tesseract-3.01.tar.gz from http://code.google.com/p/tesseract-ocr/downloads/list
 * Unpack it. (`tar -zvxf tesseract-3.01.tar.gz`)
+* Before proceeding to the next step, make sure you have the following packages:
+    * `sudo apt-get install autoconf automake libtool`
+    * `sudo apt-get install libpng12-dev`
+    * `sudo apt-get install libjpeg62-dev`
+    * `sudo apt-get install libtiff4-dev`
+    * `sudo apt-get install zlib1g-dev`
+    * `sudo apt-get install libleptonica-dev`
 * Compile tesseract:
-    * `./autogen.sh` **NOTE**: Make sure you have libtoolize & GNU autotools installed.
+    * `./autogen.sh`
     * `./configure`
+    **NOTE:** In case you will get an error about leptonica, you will have to do the following:
+        * `sudo apt-get remove libleptonica-dev`
+        * `wget http://www.leptonica.com/source/leptonica-1.68.tar.gz`
+        * After installing leptonica, try running `./configure` for tesseract again.
     * `make`
     * `sudo make install`
+    * `sudo ldconfig`
 
 **Mac OSX**
 
