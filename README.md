@@ -30,6 +30,7 @@ aptitude repositories hold an old version (v2.04).
     * `make`
     * `sudo make install`
     * `sudo ldconfig`
+* Download the english language file from http://tesseract-ocr.googlecode.com/files/tesseract-ocr-3.01.eng.tar.gz and unpack it into /usr/local/share/tessdata
 
 **Mac OSX**
 
