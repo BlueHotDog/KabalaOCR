@@ -1,5 +1,6 @@
 util = require('util')
 exec = require('child_process').exec
+ConsoleCommandBase = require("./console_command_base.coffee").base
 
 #Usage: coffee generate_traineddata_command.coffee box_filename
 #Notes: The command requires a tif and a box file with the same name
@@ -18,5 +19,4 @@ class TrainedDataGenerator extends ConsoleCommandBase
       "combine_tessdata #{@box_filename}."]
     super(@commands)
 
-command = new TrainedDataGenerator(process.argv[2])
-command.execute()
+exports.trained_data = TrainedDataGenerator

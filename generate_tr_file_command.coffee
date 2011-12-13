@@ -1,14 +1,23 @@
 ConsoleCommandBase = require("./console_command_base.coffee").base
+path = require('./mixins.coffee').path
 
 class GenerateTrFile extends ConsoleCommandBase 
-	constructor:(@box_filename) ->
-		i = @box_filename.lastIndexOf('.')
-		@box_filename = @box_filename.substr(0,i)
+	constructor:(@input_filename, @output_path = "build") ->
+		@input_filename_path = path.fullpath_filename_without_ext(@input_filename)
+		input_filename_without_ext = path.filename_without_ext(@input_filename)
+		@output_path = path.join(process.cwd(), @output_path)
+
 		@commands = [
-			"tesseract #{@box_filename}.tiff #{@box_filename} nobatch box.train",
-			"unicharset_extractor #{@box_filename}.box",
-			"echo #{@box_filename} 0 0 0 0 0 > font_properties" #add bold setting
+			"tesseract #{@input_filename_path}.tiff #{@output_path}/#{input_filename_without_ext} nobatch box.train",
+			"unicharset_extractor -D #{@output_path} #{@input_filename_path}.box",
+			"echo #{@input_filename_without_ext} 0 0 0 0 0 > #{@output_path}/font_properties" #add bold setting
 			]
-		super(@commands)
+		@cleanup_commands = [
+			"rm #{@output_path}/*.txt",
+			"rm #{@output_path}/*font_properties",
+			"rm #{@output_path}/*unicharset"
+		]
+		super(@commands, @cleanup_commands)	
 		
+	
 exports.tr = GenerateTrFile		
