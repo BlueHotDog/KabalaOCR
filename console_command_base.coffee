@@ -13,7 +13,6 @@ class ConsoleCommandBase
 			console.log(command)
 
 	execute: ->
-		console.log @commands
 		@_runCommand(@commands[@current])
 
 	_runCommand:(command) ->

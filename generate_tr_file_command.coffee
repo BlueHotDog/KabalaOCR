@@ -11,6 +11,4 @@ class GenerateTrFile extends ConsoleCommandBase
 			]
 		super(@commands)
 		
-command = new GenerateTrFile(process.argv[2])
-command.execute()
-		
+exports.tr = GenerateTrFile		
