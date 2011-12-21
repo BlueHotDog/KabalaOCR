@@ -1,6 +1,7 @@
 util = require('util')
 exec = require('child_process').exec
 path = require('./mixins.coffee').path
+_ = require("underscore")
 ConsoleCommandBase = require("./console_command_base.coffee").base
 
 #Usage: coffee generate_traineddata_command.coffee box_filename
@@ -11,6 +12,10 @@ class TrainedDataGenerator extends ConsoleCommandBase
     input_filename_path = path.fullpath_filename_without_ext(@input_filename)
     input_filename_without_ext = path.filename_without_ext(@input_filename)
     @output_path = path.join(process.cwd(), @output_path)
+
+    if _.isArray(@input_filename)
+      (file = "#{@output_path}/#{file}") for file in @input_filename
+      @input_trs = @input_filename.join(' ')
 
     @commands = [
       "mftraining -F #{@output_path}/font_properties -U #{@output_path}/unicharset #{@output_path}/#{input_filename_without_ext}.tr",
