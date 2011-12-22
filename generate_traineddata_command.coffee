@@ -1,7 +1,4 @@
-util = require('util')
-exec = require('child_process').exec
 path = require('./mixins.coffee').path
-_ = require("underscore")
 ConsoleCommandBase = require("./console_command_base.coffee").base
 
 class GenerateTrainedDataFile extends ConsoleCommandBase

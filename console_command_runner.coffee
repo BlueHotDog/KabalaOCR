@@ -35,5 +35,4 @@ class ConsoleCommandRunner extends emitter
 		@current += 1
 		@commands[@current] unless @current is @commands.length
 
-#util.inherits(ConsoleCommandRunner, emitter)		
 exports.command_runner = ConsoleCommandRunner
