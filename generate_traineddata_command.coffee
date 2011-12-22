@@ -27,6 +27,16 @@ class TrainedDataGenerator extends ConsoleCommandBase
       "mv mfunicharset #{@output_path}/#{input_filename_without_ext}.mfunicharset",
       "mv inttemp #{@output_path}/#{input_filename_without_ext}.inttemp",
       "combine_tessdata #{@output_path}/#{input_filename_without_ext}."]
-    super(@commands)
+
+    @cleanup_commands = [
+      "rm #{@output_path}/*.inttemp",
+      "rm #{@output_path}/*.Microfeat",
+      "rm #{@output_path}/*.normproto",
+      "rm #{@output_path}/*.pffmtable",
+      "rm #{@output_path}/*.tr",
+      "rm #{@output_path}/font_properties",
+      "rm #{@output_path}/*unicharset*"
+    ]
+    super(@commands, @cleanup_commands)
 
 exports.trained_data = TrainedDataGenerator
