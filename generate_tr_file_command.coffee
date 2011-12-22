@@ -12,11 +12,9 @@ class GenerateTrFile extends ConsoleCommandBase
 			"unicharset_extractor -D #{@output_path} #{@input_filename_path}.box",
 			"echo #{input_filename_without_ext} 0 0 0 0 0 > #{@output_path}/font_properties" #add bold setting
 			]
-		@cleanup_commands = ["cd ."]
-		# 	"rm #{@output_path}/*.txt",
-		# 	"rm #{@output_path}/*font_properties",
-		# 	"rm #{@output_path}/*unicharset"
-		# ]
+		@cleanup_commands = [
+			"rm #{@output_path}/*.txt"
+		]
 		super(@commands, @cleanup_commands)	
 		
 	
