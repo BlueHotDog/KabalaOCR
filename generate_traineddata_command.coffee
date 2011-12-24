@@ -1,22 +1,31 @@
-util = require('util')
-exec = require('child_process').exec
+path = require('./mixins.coffee').path
 ConsoleCommandBase = require("./console_command_base.coffee").base
 
-#Usage: coffee generate_traineddata_command.coffee box_filename
-#Notes: The command requires a tif and a box file with the same name
-#and the tif extension should be tif and not tiff! It can run without elevation
-class TrainedDataGenerator extends ConsoleCommandBase
-  constructor:(@box_filename) ->
-    @commands = [
-      "mftraining -F font_properties -U unicharset #{@box_filename}.tr",
-      "mftraining -F font_properties -U unicharset -O #{@box_filename}.unicharset #{@box_filename}.tr",
-      "cntraining #{@box_filename}.tr",
-      "mv Microfeat #{@box_filename}.Microfeat",
-      "mv normproto #{@box_filename}.normproto",
-      "mv pffmtable #{@box_filename}.pffmtable",
-      "mv mfunicharset #{@box_filename}.mfunicharset",
-      "mv inttemp #{@box_filename}.inttemp",
-      "combine_tessdata #{@box_filename}."]
-    super(@commands)
+class GenerateTrainedDataFile extends ConsoleCommandBase
+  constructor:(@input_filename, @output_path = "build") ->
+    input_filename_without_ext = path.filename_without_ext(@input_filename)
+    @output_path = path.join(process.cwd(), @output_path)
 
-exports.trained_data = TrainedDataGenerator
+    @commands = [
+      "mftraining -F font_properties -U unicharset #{input_filename_without_ext}.tr",
+      "mftraining -F font_properties -U unicharset -O #{input_filename_without_ext}.unicharset #{input_filename_without_ext}.tr",
+      "cntraining #{input_filename_without_ext}.tr",
+      "mv Microfeat #{input_filename_without_ext}.Microfeat",
+      "mv normproto #{input_filename_without_ext}.normproto",
+      "mv pffmtable #{input_filename_without_ext}.pffmtable",
+      "mv mfunicharset #{input_filename_without_ext}.mfunicharset",
+      "mv inttemp #{input_filename_without_ext}.inttemp",
+      "combine_tessdata #{input_filename_without_ext}."]
+
+    @cleanup_commands = [
+      "rm *.inttemp",
+      "rm *.Microfeat",
+      "rm *.normproto",
+      "rm *.pffmtable",
+      "rm *.tr",
+      "rm font_properties",
+      "rm *unicharset*"
+    ]
+    super(@commands, @cleanup_commands, @output_path)
+
+exports.trained_data = GenerateTrainedDataFile

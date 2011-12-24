@@ -3,8 +3,8 @@ exec = require('child_process').exec
 emitter = require('events').EventEmitter
 
 class ConsoleCommandRunner extends emitter
-	constructor:(@commands) ->
-		@current = 0
+	constructor:(@commands, @working_dir) ->
+    @current = 0
 
 	print_commands: ->
 		for command in @commands
@@ -14,13 +14,13 @@ class ConsoleCommandRunner extends emitter
 		@_runCommand(@commands[@current])
 		
 	_runCommand:(command) ->
-		exec(command, (error, stdout, stderr) =>
-				@_print_command_error(command,error,stdout,stderr) unless error is null
-				if @_last_command()
-					@emit('command_runner_finished')
-				else
-					@_runCommand(@_get_next_command()) 
-			)
+    exec(command, {cwd: @working_dir}, (error, stdout, stderr) =>
+        @_print_command_error(command,error,stdout,stderr) unless error is null
+        if @_last_command()
+          @emit('command_runner_finished')
+        else
+          @_runCommand(@_get_next_command())
+    )
 
 	_print_command_error:(command,error, stdout, stderr) ->
 		console.log("Error from command: #{command}")
@@ -35,5 +35,4 @@ class ConsoleCommandRunner extends emitter
 		@current += 1
 		@commands[@current] unless @current is @commands.length
 
-#util.inherits(ConsoleCommandRunner, emitter)		
 exports.command_runner = ConsoleCommandRunner
