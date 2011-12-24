@@ -4,7 +4,7 @@ emitter = require('events').EventEmitter
 
 class ConsoleCommandRunner extends emitter
 	constructor:(@commands, @working_dir) ->
-    @current = 0
+    	@current = 0
 
 	print_commands: ->
 		for command in @commands
