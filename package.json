@@ -4,6 +4,7 @@
   "dependencies": {
     "underscore": "",
     "coffee-script": "",
-    "async":""
+    "async":"",
+    "read-dir-files":""
   }
 }
