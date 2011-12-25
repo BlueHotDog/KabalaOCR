@@ -1,0 +1,1 @@
+global.FILE1TEST = true;

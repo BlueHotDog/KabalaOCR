@@ -5,6 +5,6 @@
     "underscore": "",
     "coffee-script": "",
     "async":"",
-    "read-dir-files":""
+    "loadit":""
   }
 }

@@ -11,5 +11,8 @@ task 'language_file', 'generate traineddata file', (options) ->
   traineddata_command = new traineddata_command(options.language_file)
   traineddata_command.execute()
 
-#task 'build_all', 'build all the receipt languages', (options) ->
+task 'build', 'creates a traineddata file from all the receipts in the repository', (options) ->
+	build_all_command = require('./build_all_command.coffee').build_all
+	build_all_command = new build_all_command()
+	build_all_command.execute()
 		  
