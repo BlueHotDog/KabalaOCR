@@ -4,8 +4,17 @@ Cleanup_Build_Dir = require("./cleanup_build_dir_command.coffee").cleanup_build_
 loadit = require("loadit")
 _ = require("underscore")
 
+
+#supermarkets: [supermarket]
+#supermarket:
+	#name: ''
+	#receipts: [receipt]		
+#receipt:
+	#tiff_file: ''
+	#box_file: ''
+
 class BuildAllCommand
-	constructor:(@receipts_dir = 'receipts', @supermarkets = {}) ->
+	constructor:(@receipts_dir = 'receipts', @supermarkets = []) ->
 		@receipts_dir = path.join(process.cwd(), @receipts_dir)
 
 	execute: ->
