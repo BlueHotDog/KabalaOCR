@@ -2,9 +2,7 @@ path = require('./mixins.coffee').path
 ConsoleCommandBase = require("./console_command_base.coffee").base
 
 class GenerateTrainedDataFile extends ConsoleCommandBase
-  constructor:(@input_filename, @output_path = "build") ->          
-    input_filename_without_ext = path.filename_without_ext(@input_filename)
-    language_name = path.dirname_of_file(@input_filename)
+  constructor:(language_name = "super", @output_path = "build") ->
     @output_path = path.join(process.cwd(), @output_path)
 
     @commands = [
