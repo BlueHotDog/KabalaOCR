@@ -6,8 +6,8 @@ class GenerateTrainedDataFile extends ConsoleCommandBase
     @output_path = path.join(process.cwd(), @output_path)
 
     @commands = [
-      "mftraining -F font_properties -U unicharset *.tr",
-      "mftraining -F font_properties -U unicharset -O #{language_name}.unicharset *.tr",
+      "mftraining -F font_properties *.tr",
+      "mftraining -F font_properties -O #{language_name}.unicharset *.tr",
       "cntraining *.tr",
       "mv Microfeat #{language_name}.Microfeat",
       "mv normproto #{language_name}.normproto",
