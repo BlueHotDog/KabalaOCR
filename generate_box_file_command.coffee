@@ -7,7 +7,7 @@ class GenerateBoxFile extends ConsoleCommandBase
 		input_filename_without_ext = path.filename_without_ext(input_filename)
 		output_path = path.dirname(input_filename_fullpath)
 		@commands = [
-			"tesseract #{input_filename} #{output_path}/#{input_filename_without_ext} batch.nochop makebox -l #{language}"
+			"tesseract -l #{language} #{input_filename} #{output_path}/#{input_filename_without_ext} batch.nochop makebox"
 			]
 		super(@commands, [], @output_path)
 		
