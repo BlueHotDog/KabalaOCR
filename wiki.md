@@ -4,5 +4,9 @@ Receipts file convention
 
 receipts/
 	[supermarket]/
-		kabalalang.[supermarket].[id].tiff
-		kabalalang.[supermarket].[id].box
+    processed
+  		kabalalang.[supermarket].[id].tiff
+  		kabalalang.[supermarket].[id].box
+    new
+      blah.jpg
+      
