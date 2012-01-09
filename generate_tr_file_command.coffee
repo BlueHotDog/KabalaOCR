@@ -10,7 +10,7 @@ class GenerateTrFile extends ConsoleCommandBase
 		@commands = [
 			"tesseract #{input_filename_fullpath}.tiff #{input_filename_without_ext} nobatch box.train",
 			"cat #{input_filename_without_ext}.tr >> #{font_name}.tr",
-			"echo #{path.dirname_of_file(input_filename_fullpath)} 0 0 0 0 0 >> font_properties" #add bold setting
+			"echo #{font_name} 0 0 0 0 0 >> font_properties" #add bold setting
 			]
 		@cleanup_commands = [
 			"rm *.txt",
