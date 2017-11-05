@@ -1,6 +1,8 @@
 KabalaOCR
 ==============
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/BlueHotDog/KabalaOCR.svg)](https://greenkeeper.io/)
+
 Tesseract langauge file for SuperMarket receipts :)
 
 Setup a Tesseract environment
